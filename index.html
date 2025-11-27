@@ -247,37 +247,11 @@
             font-size: 13px;
             border: 1px solid rgba(255, 215, 0, 0.3);
             transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
         }
 
         .skill-tag:hover {
-            background: rgba(255, 215, 0, 0.4);
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
-
-        .skill-tag:active {
-            transform: scale(0.95);
-        }
-
-        .skill-tag::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .skill-tag:active::after {
-            width: 100px;
-            height: 100px;
+            background: rgba(255, 215, 0, 0.3);
+            transform: scale(1.05);
         }
 
         /* Experience Section */
@@ -321,29 +295,13 @@
             position: relative;
             line-height: 1.6;
             font-size: 14px;
-            opacity: 0;
-            animation: fadeInUp 0.6s ease forwards;
         }
-
-        .experience-item li:nth-child(1) { animation-delay: 0.1s; }
-        .experience-item li:nth-child(2) { animation-delay: 0.2s; }
-        .experience-item li:nth-child(3) { animation-delay: 0.3s; }
-        .experience-item li:nth-child(4) { animation-delay: 0.4s; }
-        .experience-item li:nth-child(5) { animation-delay: 0.5s; }
-        .experience-item li:nth-child(6) { animation-delay: 0.6s; }
-        .experience-item li:nth-child(7) { animation-delay: 0.7s; }
-        .experience-item li:nth-child(8) { animation-delay: 0.8s; }
 
         .experience-item li:before {
             content: "▸";
             position: absolute;
             left: 0;
             color: #ffd700;
-            transition: transform 0.3s ease;
-        }
-
-        .experience-item:hover li:before {
-            transform: scale(1.3) rotate(15deg);
         }
 
         /* Projects Section */
@@ -407,15 +365,6 @@
             position: absolute;
             left: 0;
             color: #ffd700;
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover .project-content li:before {
-            transform: translateX(5px);
-        }
-
-        .project-card:active {
-            transform: scale(0.98);
         }
 
         /* Education Section */
@@ -514,6 +463,98 @@
             box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
         }
 
+        /* LinkedIn Follow Button */
+        .libutton {
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 7px;
+            text-align: center;
+            outline: none;
+            text-decoration: none !important;
+            color: #ffffff !important;
+            width: 200px;
+            height: 32px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #0A66C2, #0856A7);
+            font-family: "SF Pro Text", Helvetica, Arial, sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .libutton:hover {
+            background: linear-gradient(135deg, #0856A7, #063d82);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(10, 102, 194, 0.4);
+        }
+
+        .libutton:active {
+            transform: translateY(0);
+        }
+
+        /* Interactive Elements */
+        .tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dotted rgba(255, 215, 0, 0.5);
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffd700;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 999;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: tooltipFade 0.3s ease;
+        }
+
+        @keyframes tooltipFade {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Expandable Cards */
+        .expandable {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .expandable.active .expandable-content {
+            max-height: 500px;
+        }
+
+        .expand-icon {
+            display: inline-block;
+            transition: transform 0.3s ease;
+            margin-left: 8px;
+        }
+
+        .expandable.active .expand-icon {
+            transform: rotate(180deg);
+        }
+
         /* Footer */
         footer {
             background: rgba(0, 0, 0, 0.2);
@@ -567,28 +608,6 @@
                 margin: 40px 0;
                 padding: 30px;
             }
-        }
-
-        /* Skill expansion animation */
-        @keyframes skillExpand {
-            from {
-                max-height: 0;
-                opacity: 0;
-            }
-            to {
-                max-height: 200px;
-                opacity: 1;
-            }
-        }
-
-        /* Education item expand effect */
-        .education-item.expanded .details {
-            display: block;
-        }
-
-        /* Project card click effect */
-        .project-card.expanded .project-content {
-            max-height: 500px;
         }
 
         /* Responsive - Mobile Tablets (768px and below) */
@@ -1062,19 +1081,21 @@
         <!-- Experience Section -->
         <section class="experience" id="experience">
             <h2>Professional Experience</h2>
-            <div class="experience-item">
-                <h3>Data Engineer</h3>
+            <div class="experience-item expandable" onclick="toggleExpand(this)">
+                <h3>Data Engineer <span class="expand-icon">▼</span></h3>
                 <div class="company">HCL Technologies, Noida | Oct 2023 - Present</div>
-                <ul>
-                    <li>Implemented data partitioning on Big Data using Azure Databricks, decreasing processing time by 50%</li>
-                    <li>Designed and executed successful migration of 50TB of critical data to Azure Data Lake Storage Gen2</li>
-                    <li>Championed adoption of Azure Data Factory (ADF) pipelines, improving data refresh cycles by 40%</li>
-                    <li>Leveraged ADLS to solve data retention policies, improving data access reliability by 35%</li>
-                    <li>Developed PySpark scripts for data ingestion in reload, append, and merge modes into delta tables</li>
-                    <li>Used Azure Synapse Analytics for real-time big data analytics, reducing query time by 30%</li>
-                    <li>Configured Snowpipe for continuous data ingestion from S3 buckets with zero-copy cloning (25% faster release cycles)</li>
-                    <li>Experienced in dimensional modeling and Slowly Changing Dimension (SCD) concepts in Snowflake</li>
-                </ul>
+                <div class="expandable-content">
+                    <ul>
+                        <li>Implemented data partitioning on Big Data using <span class="tooltip" data-tooltip="Distributed computing platform for large-scale data processing">Azure Databricks</span>, decreasing processing time by 50%</li>
+                        <li>Designed and executed successful migration of 50TB of critical data to <span class="tooltip" data-tooltip="Scalable cloud data lake storage">Azure Data Lake Storage Gen2</span></li>
+                        <li>Championed adoption of <span class="tooltip" data-tooltip="Azure's cloud data integration service">Azure Data Factory (ADF)</span> pipelines, improving data refresh cycles by 40%</li>
+                        <li>Leveraged ADLS to solve data retention policies, improving data access reliability by 35%</li>
+                        <li>Developed PySpark scripts for data ingestion in reload, append, and merge modes into delta tables</li>
+                        <li>Used <span class="tooltip" data-tooltip="Real-time big data analytics service">Azure Synapse Analytics</span> for real-time big data analytics, reducing query time by 30%</li>
+                        <li>Configured <span class="tooltip" data-tooltip="Snowflake's continuous data ingestion service">Snowpipe</span> for continuous data ingestion from S3 buckets with zero-copy cloning (25% faster release cycles)</li>
+                        <li>Experienced in dimensional modeling and <span class="tooltip" data-tooltip="Handling slowly changing dimensions in data warehouses">Slowly Changing Dimension (SCD)</span> concepts in Snowflake</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
@@ -1129,26 +1150,28 @@
                 <p style="color: rgba(255,255,255,0.9); margin-bottom: 30px; font-size: 16px;">
                     I'm actively seeking data engineering opportunities to advance my career. Feel free to reach out!
                 </p>
-                <div class="contact-info">            <div class="contact-item" onclick="copyToClipboard('vishnoi251198@gmail.com', this)">
-                <strong style="color: #ffd700;">Email</strong><br>
-                <a href="mailto:vishnoi251198@gmail.com">vishnoi251198@gmail.com</a>
-                <div style="font-size: 11px; margin-top: 5px; color: #ffd700; opacity: 0; transition: opacity 0.3s ease;" class="copy-hint">Click to copy</div>
-            </div>
-            <div class="contact-item" onclick="copyToClipboard('+917351352279', this)">
-                <strong style="color: #ffd700;">Phone</strong><br>
-                <a href="tel:+917351352279">+91-7351352279</a>
-                <div style="font-size: 11px; margin-top: 5px; color: #ffd700; opacity: 0; transition: opacity 0.3s ease;" class="copy-hint">Click to copy</div>
-            </div>
-            <div class="contact-item">
-                <strong style="color: #ffd700;">LinkedIn</strong><br>
-                <a href="https://linkedin.com/in/theyashvishnoi" target="_blank">linkedin.com/in/theyashvishnoi</a>
-            </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <strong style="color: #ffd700;">Email</strong><br>
+                        <a href="mailto:vishnoi251198@gmail.com">vishnoi251198@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong style="color: #ffd700;">Phone</strong><br>
+                        <a href="tel:+917351352279">+91-7351352279</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong style="color: #ffd700;">LinkedIn</strong><br>
+                        <a href="https://linkedin.com/in/theyashvishnoi" target="_blank">linkedin.com/in/theyashvishnoi</a>
+                    </div>
                 </div>
                 <div style="margin-top: 40px;">
                     <p style="color: rgba(255,255,255,0.8); margin-bottom: 20px;">Connect with me on social platforms</p>
                     <div class="social-links">
                         <a href="https://linkedin.com/in/theyashvishnoi" class="social-link" target="_blank" title="LinkedIn">in</a>
                         <a href="mailto:vishnoi251198@gmail.com" class="social-link" title="Email">@</a>
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <a class="libutton" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=theyashvishnoi" target="_blank">Follow on LinkedIn</a>
                     </div>
                 </div>
             </div>
@@ -1179,61 +1202,12 @@
             }
         }
 
-        // Toggle project card expansion
-        function toggleProject(card) {
-            card.classList.toggle('expanded');
+        function toggleExpand(element) {
+            element.classList.toggle('active');
         }
-
-        // Animate skill tags on hover
-        document.addEventListener('DOMContentLoaded', function() {
-            const skillTags = document.querySelectorAll('.skill-tag');
-            skillTags.forEach(tag => {
-                tag.addEventListener('click', function() {
-                    this.style.animation = 'none';
-                    setTimeout(() => {
-                        this.style.animation = 'skillExpand 0.3s ease';
-                    }, 10);
-                });
-            });
-
-            // Add click to expand for project cards
-            const projectCards = document.querySelectorAll('.project-card');
-            projectCards.forEach(card => {
-                card.style.cursor = 'pointer';
-                card.addEventListener('click', function() {
-                    toggleProject(this);
-                });
-            });
-
-            // Experience item interactivity
-            const expItems = document.querySelectorAll('.experience-item');
-            expItems.forEach(item => {
-                item.style.cursor = 'pointer';
-                item.addEventListener('click', function() {
-                    this.classList.toggle('expanded');
-                });
-            });
-        });
 
         // Add smooth scroll behavior globally
         document.documentElement.style.scrollBehavior = 'smooth';
-
-        // Copy to clipboard function
-        function copyToClipboard(text, element) {
-            navigator.clipboard.writeText(text).then(() => {
-                const hint = element.querySelector('.copy-hint');
-                if (hint) {
-                    hint.style.opacity = '1';
-                    setTimeout(() => {
-                        hint.style.opacity = '0';
-                    }, 2000);
-                }
-                element.style.background = 'rgba(255, 215, 0, 0.15)';
-                setTimeout(() => {
-                    element.style.background = 'rgba(255, 255, 255, 0.1)';
-                }, 300);
-            });
-        }
 
         // Active nav link highlighting
         window.addEventListener('scroll', () => {
@@ -1258,11 +1232,21 @@
             });
         });
 
-        // Parallax scrolling effect on hero
+        // Add interactivity to skill tags
+        document.querySelectorAll('.skill-tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                this.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+
+        // Parallax effect on scroll
         window.addEventListener('scroll', () => {
             const hero = document.querySelector('.hero');
             if (hero) {
-                hero.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+                hero.style.transform = `translateY(${window.scrollY * 0.5}px)`;
             }
         });
     </script>
